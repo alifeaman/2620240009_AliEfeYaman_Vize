@@ -6,6 +6,7 @@ public class PlayerController: MonoBehaviour
     int score = 0;
     int targetScore = 50;
     string message = "";
+    float messageTimer = 0f;
     public float moveSpeed = 6f;
     public float jumpForce = 7f;
     public bool isGrounded;
@@ -23,6 +24,14 @@ public class PlayerController: MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+        if (messageTimer > 0f)
+        {
+            messageTimer -= Time.deltaTime;
+            if (messageTimer <= 0f)
+            {
+                message = "";
+            }
         }
     }
     void FixedUpdate()
@@ -65,6 +74,7 @@ public class PlayerController: MonoBehaviour
             else
             {
                 message = "Yeterli puan yok!";
+                messageTimer = 2f;
             }
         }
     }
